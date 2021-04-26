@@ -1,7 +1,7 @@
 #include "lists.h"
 
 /**
- * insert_node - function to add a node at the beginning
+ * insert_node - function to add a node in a SLL
  * @head: pointer to the first node of a list
  * @number: const variable
  * Return: the address of the new node, or NULL if it failed
