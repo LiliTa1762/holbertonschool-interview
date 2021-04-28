@@ -1,5 +1,4 @@
 #include "lists.h"
-
 /**
  * insert_node - function to add a node in a SLL
  * @head: pointer to the first node of a list
@@ -20,10 +19,7 @@ listint_t *insert_node(listint_t **head, int number)
 	if ((*head)->next == NULL)
 	{
 		if ((*head)->n >= number)
-		{
-			(*head) = new->next;
-			(*head) = new;
-		}
+			(*head) = new->next, (*head) = new;
 		else
 		{
 			(*head)->next = new;
@@ -34,8 +30,7 @@ listint_t *insert_node(listint_t **head, int number)
 	{
 		if (current->next->n >= number)
 		{
-			new->next = current->next;
-			current->next = new;
+			new->next = current->next, current->next = new;
 			return (new);
 		}
 		else
@@ -44,10 +39,7 @@ listint_t *insert_node(listint_t **head, int number)
 	if (current->next == NULL)
 	{
 		if (current->n <= number)
-		{
-			current->next = new;
-			new->next = NULL;
-		}
+			current->next = new, new->next = NULL;
 		else
 			new->next = current;
 	}
