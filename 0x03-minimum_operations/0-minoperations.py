@@ -12,10 +12,12 @@ def minOperations(n):
     if n <= 4:
         return n
 
-    if n % 2 == 0:
-        x = int((n / 2) + 1)
-        return x
-
-    else:
-        x = int((n / 2) + 2)
-        return x
+    result = 0
+    i = 2
+    while i <= n:
+        if n % i == 0:
+            result += i
+            n = n / i
+            i = i - 1
+        i = i + 1
+    return int(result)
