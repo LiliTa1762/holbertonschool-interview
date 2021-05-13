@@ -6,11 +6,8 @@ in exactly n H characters"""
 
 def minOperations(n):
     """Method of minimum operation"""
-    if type(n) != int or n <= 0:
+    if n <= 0:
         return 0
-
-    if n <= 4:
-        return n
 
     result = 0
     i = 2
