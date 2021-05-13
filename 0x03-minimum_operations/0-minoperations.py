@@ -6,7 +6,7 @@ in exactly n H characters"""
 
 def minOperations(n):
     """Method of minimum operation"""
-    if n <= 0:
+    if type(n) != int or n <= 0:
         return 0
 
     if n <= 4:
