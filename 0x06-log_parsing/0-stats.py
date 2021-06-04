@@ -21,7 +21,7 @@ try:
 
         count += 1
         content = line.split()
-        if len(content) > 2:
+        if len(content) == 9:
             status, filesize = int(content[7]), int(content[8])
             fileTotal += filesize
             if status in statusList:
