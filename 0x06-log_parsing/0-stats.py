@@ -18,12 +18,12 @@ count = 1
 
 try:
     for line in sys.stdin:
-        
+
         count += 1
         content = line.split()
         if len(content) == 9:
             status, filesize = int(content[7]), int(content[8])
-            fileTotal += filesize	
+            fileTotal += filesize
             if status in statusList:
                 if status == 200:
                     statusUno = statusUno + 1
@@ -42,37 +42,37 @@ try:
                 elif status == 500:
                     statusOcho = statusOcho + 1
                 if count == 10:
-                    print("File size:{:d}".format(fileTotal))
+                    print("File size: {:d}".format(fileTotal))
                     if statusUno != 0:
-                        print("200:{:d}".format(statusUno))
+                        print("200: {:d}".format(statusUno))
                     else:
                         pass
-                    if statusDos != 0 :
-                        print("301:{:d}".format(statusDos))
+                    if statusDos != 0:
+                        print("301: {:d}".format(statusDos))
                     else:
                         pass
-                    if statusTres != 0 :
-                        print("400:{:d}".format(statusTres))
+                    if statusTres != 0:
+                        print("400: {:d}".format(statusTres))
                     else:
                         pass
-                    if statusCuatro != 0 :
-                        print("401:{:d}".format(statusCuatro))
+                    if statusCuatro != 0:
+                        print("401: {:d}".format(statusCuatro))
                     else:
                         pass
-                    if statusCinco != 0 :
-                        print("403:{:d}".format(statusCinco))
+                    if statusCinco != 0:
+                        print("403: {:d}".format(statusCinco))
                     else:
                         pass
-                    if statusSeis != 0 :
-                        print("404:{:d}".format(statusSeis))
+                    if statusSeis != 0:
+                        print("404: {:d}".format(statusSeis))
                     else:
                         pass
-                    if statusSiete != 0 :
-                        print("405:{:d}".format(statusSiete))
+                    if statusSiete != 0:
+                        print("405: {:d}".format(statusSiete))
                     else:
                         pass
-                    if statusOcho != 0 :
-                        print("500:{:d}".format(statusOcho))
+                    if statusOcho != 0:
+                        print("500: {:d}".format(statusOcho))
                     else:
                         pass
                 elif count > 10:
@@ -85,35 +85,34 @@ except:
 finally:
         print("File size:{:d}".format(fileTotal))
         if statusUno != 0:
-            print("200:{:d}".format(statusUno))
+            print("200: {:d}".format(statusUno))
         else:
             pass
-        if statusDos != 0 :
-            print("301:{:d}".format(statusDos))
+        if statusDos != 0:
+            print("301: {:d}".format(statusDos))
         else:
             pass
-        if statusTres != 0 :
-            print("400:{:d}".format(statusTres))
+        if statusTres != 0:
+            print("400: {:d}".format(statusTres))
         else:
             pass
-        if statusCuatro != 0 :
-            print("401:{:d}".format(statusCuatro))
+        if statusCuatro != 0:
+            print("401: {:d}".format(statusCuatro))
         else:
             pass
-        if statusCinco != 0 :
-            print("403:{:d}".format(statusCinco))
+        if statusCinco != 0:
+            print("403: {:d}".format(statusCinco))
         else:
             pass
-        if statusSeis != 0 :
-            print("404:{:d}".format(statusSeis))
+        if statusSeis != 0:
+            print("404: {:d}".format(statusSeis))
         else:
             pass
-        if statusSiete != 0 :
-            print("405:{:d}".format(statusSiete))
+        if statusSiete != 0:
+            print("405: {:d}".format(statusSiete))
         else:
             pass
-        if statusOcho != 0 :
-            print("500:{:d}".format(statusOcho))
+        if statusOcho != 0:
+            print("500: {:d}".format(statusOcho))
         else:
             pass
-
