@@ -83,7 +83,7 @@ try:
 except:
     pass
 finally:
-        print("File size:{:d}".format(fileTotal))
+        print("File size: {:d}".format(fileTotal))
         if statusUno != 0:
             print("200: {:d}".format(statusUno))
         else:
