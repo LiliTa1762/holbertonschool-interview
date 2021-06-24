@@ -5,12 +5,8 @@ data set represents a valid UTF-8
 encoding.
 """
 
+
 def validUTF8(data):
-        """
-        Method that determines if a given
-        data set represents a valid UTF-8
-        encoding.
-        """
 
         n_bytes = 0
 
@@ -20,7 +16,8 @@ def validUTF8(data):
             if n_bytes == 0:
 
                 for bit in bin_rep:
-                    if bit == '0': break
+                    if bit == '0':
+                        break
                     n_bytes += 1
 
                 if n_bytes == 0:
