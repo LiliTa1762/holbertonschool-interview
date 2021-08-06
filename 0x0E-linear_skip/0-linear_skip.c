@@ -24,44 +24,62 @@ skiplist_t *cp(skiplist_t *prev, skiplist_t *tmp, int value)
  * Return: pointer on the first node where value is located
  */
 skiplist_t *linear_skip(skiplist_t *list, int value)
-{
-	skiplist_t *tmp = list, *prev = list;
+#include <stdlib.h>
+#include <math.h>
+#include "search.h"
 
-	while (tmp)
+/**
+ * init_express - Initializes the express lane of the linked list
+ *
+ * @list: Pointer to the head node of the list
+ * @size: Number of nodes in the list
+ */
+void init_express(skiplist_t *list, size_t size)
+{
+	const size_t step = sqrt(size);
+	size_t i;
+	skiplist_t *save;
+
+	for (save = list, i = 0; i < size; ++i, list = list->next)
 	{
-		if ((tmp->n < value || ((tmp->n == value) && !(cp(prev, tmp, value))))
-		&& tmp->next)
+		if (i % step == 0)
 		{
-			if (tmp->index)
-				printf("Value checked at index [%lu] = [%d]\n", tmp->index, tmp->n);
-			prev = tmp;
-			if (tmp->express)
-			{
-				tmp = tmp->express;
-			}
-			else
-			{
-				while (tmp->next)
-					tmp = tmp->next;
-			}
-		}
-		else
-		{
-			if (prev->n > value)
-				return (NULL);
-			if (tmp->n >= value)
-				printf("Value checked at index [%lu] = [%d]\n", tmp->index, tmp->n);
-			printf("Value found between indexes [%lu] and [%lu]\n",
-					prev->index, tmp->index);
-			while (prev && prev != tmp->next)
-			{
-				printf("Value checked at index [%lu] = [%d]\n", prev->index, prev->n);
-				if (prev->n == value)
-					return (prev);
-				prev = prev->next;
-			}
-			return (NULL);
+			save->express = list;
+			save = list;
 		}
 	}
-	return (NULL);
+}
+
+/**
+ * create_skiplist - Create a single linked list
+ *
+ * @array: Pointer to the array used to fill the list
+ * @size: Size of the array
+ *
+ * Return: A pointer to the head of the created list (NULL on failure)
+ */
+skiplist_t *create_skiplist(int *array, size_t size)
+{
+	skiplist_t *list;
+	skiplist_t *node;
+	size_t save_size;
+
+	list = NULL;
+	save_size = size;
+	while (array && size--)
+	{
+		node = malloc(sizeof(*node));
+		if (!node)
+		{
+			free_skiplist(list);
+			return (NULL);
+		}
+		node->n = array[size];
+		node->index = size;
+		node->express = NULL;
+		node->next = list;
+		list = node;
+	}
+	init_express(list, save_size);
+	return (list);
 }
