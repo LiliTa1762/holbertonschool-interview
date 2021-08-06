@@ -1,59 +1,47 @@
-#include <stdlib.h>
-#include <math.h>
 #include "search.h"
-
 /**
- * init_express - Initializes the express lane of the linked list
- *
- * @list: Pointer to the head node of the list
- * @size: Number of nodes in the list
- */
-void init_express(skiplist_t *list, size_t size)
+ * linear_skip - searches for a value in a sorted skip list of integers
+ * @list:  pointer to the head of the skip list to search in
+ * @value: the value to search for
+ * Return: a pointer on the first node where value is located, otherwise NULL
+ **/
+skiplist_t *linear_skip(skiplist_t *list, int value)
 {
-	const size_t step = sqrt(size);
-	size_t i;
-	skiplist_t *save;
+	skiplist_t *_list;
 
-	for (save = list, i = 0; i < size; ++i, list = list->next)
+	if (!list)
+		return (NULL);
+	_list = list;
+	while (_list->express)
 	{
-		if (i % step == 0)
+		printf("Value checked at index [%lu] = [%d]\n",
+			_list->express->index, _list->express->n);
+		if (_list->express->n >= value)
 		{
-			save->express = list;
-			save = list;
+			printf("Value found between indexes [%lu] and [%lu]\n",
+				_list->index, _list->express->index);
+			break;
 		}
+		_list = _list->express;
 	}
-}
-
-/**
- * create_skiplist - Create a single linked list
- *
- * @array: Pointer to the array used to fill the list
- * @size: Size of the array
- *
- * Return: A pointer to the head of the created list (NULL on failure)
- */
-skiplist_t *create_skiplist(int *array, size_t size)
-{
-	skiplist_t *list;
-	skiplist_t *node;
-	size_t save_size;
-
-	list = NULL;
-	save_size = size;
-	while (array && size--)
+	if (!_list->express)
 	{
-		node = malloc(sizeof(*node));
-		if (!node)
-		{
-			free_skiplist(list);
-			return (NULL);
-		}
-		node->n = array[size];
-		node->index = size;
-		node->express = NULL;
-		node->next = list;
-		list = node;
+		list = _list;
+		while (list->next)
+			list = list->next;
+		printf("Value found between indexes [%lu] and [%lu]\n",
+			_list->index, list->index);
 	}
-	init_express(list, save_size);
-	return (list);
+	list = _list;
+	while (list != _list->express)
+	{
+		printf("Value checked at index [%lu] = [%d]\n",
+			list->index, list->n);
+		if (list->n == value)
+			break;
+		list = list->next;
+	}
+	if (list != _list->express)
+		return (list);
+	return (NULL);
 }
