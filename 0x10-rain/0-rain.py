@@ -5,6 +5,7 @@ of water will be retained after
 it rains
 """
 
+
 def rain(walls):
     """walls is a list of non-negative integers"""
     if walls is None:
