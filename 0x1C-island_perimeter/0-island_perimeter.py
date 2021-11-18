@@ -10,9 +10,9 @@ def island_perimeter(grid):
     Grid is a list of list of integers.
     The grid is completely surrounded by water.
     There is only one island (or nothing).
-    The island doesn’t have “lakes” (water 
+    The island doesn’t have “lakes” (water
     inside that isn’t connected to the water
-     surrounding the island).  
+     surrounding the island).
     """
     perimeter = 0
     x = len(grid)
