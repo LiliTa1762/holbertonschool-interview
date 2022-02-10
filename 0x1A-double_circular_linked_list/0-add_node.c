@@ -1,93 +1,89 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include "list.h"
 
 /**
- * add_node_end - Adds a new node to the end of a double circular linked list
- *
- * @list:the list to modify
- * @str: the string to copy into the new node
- * Return: Address of the new node, or NULL on failure
- */
-List *add_node_end(List **list, char *str)
+ * create_node - add a node.
+ * @list: list to modify
+ * @str: string value in the new node.
+ * Return: Memory address to the new node.
+**/
+
+List *create_node(List **list, char *str)
 {
 	List *new_node;
-	char *strNode;
 
-	if (!list)
+	if (list == NULL || str == NULL)
 		return (NULL);
 
-	new_node = malloc(sizeof(List));
-	if (!new_node)
+	new_node = (List *)malloc(sizeof(List));
+	if (new_node == NULL)
 		return (NULL);
 
-	strNode = strdup(str);
-	if (!strNode)
+	new_node->str = strdup(str);
+	if (!new_node->str)
 	{
 		free(new_node);
 		return (NULL);
 	}
-	new_node->str = strNode;
 
-	if (!*list)
+	if (*list == NULL)
 	{
-		new_node->next = new_node;
-		new_node->prev = new_node;
+		new_node->next = new_node->prev = new_node;
 		*list = new_node;
 		return (new_node);
 	}
 
-	new_node->next = *list;
-	new_node->prev = (*list)->prev;
-
-	(*list)->prev = new_node;
-	new_node->prev->next = new_node;
-
 	return (new_node);
 }
+
+
 /**
- * add_node_begin - Adds a new node to the beginning of a
- * double circular linked list
- *
- * @list:the list to modify
- * @str: the string to copy into the new node
- * Return: Address of the new node, or NULL on failure
- */
-List *add_node_begin(List **list, char *str)
+* add_node_end - Adds node to the end of a double circular linked list
+* @list: the list to modify
+* @str: string to copy into the new node
+* Return: Address of the new node, or NULL on failure
+*/
+
+List *add_node_end(List **list, char *str)
 {
-	List *new_node;
-	char *strNode;
+	List *new_node, *temp;
 
-	if (!list)
-		return (NULL);
+	new_node = create_node(list, str);
 
-	new_node = malloc(sizeof(List));
 	if (!new_node)
 		return (NULL);
 
-	strNode = strdup(str);
-	if (!strNode)
-	{
-		free(new_node);
+	temp = (*list)->prev;
+
+	temp->next = new_node;
+	(*list)->prev = new_node;
+	new_node->prev = temp;
+	new_node->next = *list;
+
+	return (new_node);
+}
+
+/**
+* add_node_begin - Adds node to the beginning of a double circular linked list
+* @list: the list to modify
+* @str: string to copy into the new node
+* Return: Address of the new node, or NULL on failure
+*/
+
+List *add_node_begin(List **list, char *str)
+{
+	List *new_node, *temp;
+
+	new_node = create_node(list, str);
+
+	if (!new_node)
 		return (NULL);
-	}
-	new_node->str = strNode;
 
-	if (*list)
-	{
-		new_node->next = *list;
-		new_node->prev = (*list)->prev;
-		(*list)->prev = new_node;
-		if (new_node->prev)
-			new_node->prev->next = new_node;
-	}
-	else
-	{
-		new_node->prev = new_node;
-		new_node->next = new_node;
-	}
+	temp = (*list)->prev;
 
+	temp->next = new_node;
+	(*list)->prev = new_node;
+	new_node->prev = temp;
+	new_node->next = (*list);
 	*list = new_node;
 
 	return (new_node);
