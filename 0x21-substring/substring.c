@@ -6,7 +6,7 @@
  * @words: array of words
  * @nb_words: number of elements in the array words
  * @n: holds the address at which to store the number of elements
- * Return:  an allocated array, storing each index in s or NULL 
+ * Return:  an allocated array, storing each index in s or NULL
  */
 int *find_substring(char const *s, char const **words, int nb_words, int *n)
 {
