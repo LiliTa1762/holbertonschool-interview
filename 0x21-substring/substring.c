@@ -10,32 +10,30 @@
  */
 int *find_substring(char const *s, char const **words, int nb_words, int *n)
 {
+	int counter, str_len, words_len, check, current_index, i, j, k;
+	int *array_idx, *match_idx;
 
-	int current_idx, counter, str_len, word_len, check_str, i, j, k;
-	int *match, *idx_array;
-
-	if (!s || !words || !n || nb_words == 0)
+	if (nb_words == 0 || !s || !words || !n)
 		return (NULL);
 	str_len = strlen(s);
-	word_len = strlen(words[0]);
-	idx_array = malloc(str_len * sizeof(int));
-	if (!idx_array)
+	array_idx = malloc(str_len * sizeof(int));
+	match_idx = malloc(nb_words * sizeof(int));
+	if (!match_idx || !array_idx)
 		return (NULL);
-	match = malloc(nb_words * sizeof(int));
-	if (!match)
-		return (NULL);
-	for (i = counter = 0; i <= str_len - nb_words * word_len; i++)
+	words_len = strlen(words[0]);
+	counter = 0;
+	for (i = 0; i <= str_len - nb_words * words_len; i++)
 	{
-		memset(match, 0, nb_words * sizeof(int));
+		memset(match_idx, 0, nb_words * sizeof(int));
 		for (j = 0; j < nb_words; j++)
 		{
 			for (k = 0; k < nb_words; k++)
 			{
-				current_idx = i + j * word_len;
-				check_str = strncmp(s + current_idx, *(words + k), word_len);
-				if (!*(match + k) && !check_str)
+				current_index = i + j * words_len;
+				check = strncmp(s + current_index, *(words + k), words_len);
+				if (!*(match_idx + k) && !check)
 				{
-					*(match + k) = 1;
+					*(match_idx + k) = 1;
 					break;
 				}
 			}
@@ -43,9 +41,12 @@ int *find_substring(char const *s, char const **words, int nb_words, int *n)
 				break;
 		}
 		if (j == nb_words)
-			*(idx_array + counter) = i, counter += 1;
+		{
+			*(array_idx + counter) = i;
+			counter += 1;
+		}
 	}
-	free(match);
+	free(match_idx);
 	*n = counter;
-	return (idx_array);
+	return (array_idx);
 }
